@@ -1,0 +1,61 @@
+# This workflow will build a .NET project
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net
+
+name: .NET Build and Upload Artifacts
+
+on:
+  workflow_dispatch:
+    inputs:
+      dotnetVersion:
+        type: choice
+        description: .NET SDK Version
+        options:
+          - '8.0.x'
+        required: true
+      os:
+        type: choice
+        description: Operating System
+        options:
+          - windows-latest
+          - windows-2022
+          - windows-2019
+          - ubuntu-latest
+          - ubuntu-22.04
+          - ubuntu-20.04
+          - macos-latest
+          - macos-14
+          - macos-13
+          - macos-12
+        required: true
+
+env:
+  CORE_PATH: src/fluxiolib.core/fluxiolib.csproj
+  TEST_PATH: tests/FluxIOLib.Tests/FluxIOLib.Tests.csproj
+  OUTPUT_DIR: build/Artifacts
+  
+jobs:
+  build:
+
+    runs-on: ${{ github.event.inputs.os }}
+    steps:
+    - uses: actions/checkout@v4
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: ${{ github.event.inputs.dotnetVersion }}
+        
+    - name: (Build) Restore dependencies
+      run: dotnet restore ${{ env.CORE_PATH }}
+    - name: Build
+      run: dotnet build ${{ env.CORE_PATH }} --no-restore -p:Unsafe=true -nowarn:1701,1702,IDE1006,IDE0290,CS1591 -o ${{ env.OUTPUT_DIR }}
+      
+    - name: (Test) Restore dependencies
+      run: dotnet restore ${{ env.TEST_PATH }}
+    - name: Test
+      run: dotnet test ${{ env.TEST_PATH }} --verbosity normal
+      
+    - name: Upload
+      uses: actions/upload-artifact@v4
+      with:
+        name: core-build-output
+        path: ${{ env.OUTPUT_DIR }}

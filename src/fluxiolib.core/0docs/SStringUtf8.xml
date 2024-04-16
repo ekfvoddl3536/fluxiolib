@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<docs>
+    <ctor_1>
+        <summary>
+            UTF8 인코딩 문자열과 <see cref="StringMatchType"/>으로부터 <see cref="SStringUtf8"/>을 초기화합니다.
+        </summary>
+        <param name="utf8String">UTF8 인코딩된 문자열</param>
+    </ctor_1>
+    <ctor_2>
+        <summary>
+            UTF16 인코딩 문자열과 <see cref="StringMatchType"/>으로부터 <see cref="SStringUtf8"/>을 초기화합니다.
+        </summary>
+        <param name="utf16String">UTF8 인코딩된 문자열</param>
+        <param name="type">
+            다른 문자열과 <paramref name="utf16String"/>을 비교할 때, 사용할 동작의 유형을 지정합니다.
+        </param>
+    </ctor_2>
+    <ctor_arg1>
+        <param name="type">
+            다른 문자열과 <paramref name="utf8String"/>을 비교할 때, 사용할 동작의 유형을 지정합니다.
+        </param>
+    </ctor_arg1>
+    <ctor_example1>
+        <example>
+            <![CDATA[
+            // Same as: left, input, other
+            SStringUtf8 other = "hello, world!"u8;
+            
+            // Same as: right, compare, me
+            SStringUtf8 me = new SStringUtf8("hello"u8, StringMatchType.StartsWith);
+            
+            bool r1 = me.Match(other); // TRUE
+            
+            bool r2 = other.Match(me); // FALSE
+          ]]>
+        </example>
+    </ctor_example1>
+    <ctor_example2>
+        <example>
+            <![CDATA[
+            // Same as: left, input, other
+            SStringUtf8 other = "hello, world!";
+            
+            // Same as: right, compare, me
+            SStringUtf8 me = new SStringUtf8("hello", StringMatchType.StartsWith);
+            
+            bool r1 = me.Match(other); // TRUE
+            
+            bool r2 = other.Match(me); // FALSE
+          ]]>
+        </example>
+    </ctor_example2>
+</docs>

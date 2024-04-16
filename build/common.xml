@@ -1,0 +1,26 @@
+<Project>
+
+    <PropertyGroup>
+        <Product>FluxIO</Product>
+        <Description>FluxIO is an alternative to reflection that enables lightweight and fast field access.</Description>
+        
+        <PackageTags>reflection;performance</PackageTags>
+        
+        <Copyright>Copyright (c) 2024 SuperComic(ekfvoddl3535@naver.com)</Copyright>
+        <Authors>SuperComic(ekfvoddl3535@naver.com)</Authors>
+        
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+                
+        <RepositoryType>git</RepositoryType>
+        <RepositoryUrl>https://github.com/ekfvoddl3536/fluxiolib</RepositoryUrl>
+        
+        <NeutralLanguage>ko</NeutralLanguage>
+        
+        <CLSCompliant>true</CLSCompliant>
+        <ComVisible>false</ComVisible>
+        
+        <Nullable>enable</Nullable>
+        <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+    </PropertyGroup>
+    
+</Project>
