@@ -5,6 +5,12 @@ OS                                    | OS Version              | Architecture  
 Windows 11                            | 22631.3296              | x64                     | 8.0 
 Windows 11                            | 22631.3296              | x64                     | 8.0 AOT 
 Ubuntu                                | 22.04.4 LTS             | x64                     | 8.0 AOT 
+Windows Server                        | 2022                    | x64                     | 8.0
+Windows Server                        | 2019                    | x64                     | 8.0
+Ubuntu                                | 20.04                   | x64                     | 8.0
+macOS                                 | 12                      | x64                     | 8.0
+macOS                                 | 13                      | x64                     | 8.0
+macOS                                 | 14(M1)                  | Arm64                   | 8.0
 
 
 
@@ -29,14 +35,7 @@ Fedora                                | 38+                     | x64
 openSUSE                              | 15+                     | x64                     
 Oracle Linux                          | 8+                      | x64                     
 Red Hat Enterprise Linux              | 8+                      | x64, Arm64              
-SUSE Enterprise Linux (SLES)          | 12 SP5+                 | x64                     
-Ubuntu                                | 20.04+                  | x64, Arm64              
-
-## macOS
-OS                                    | OS Version              | Architecture            
---------------------------------------|-------------------------|-------------------------
-macOS                                 | 12.0+                   | x64, Arm64              
-
+SUSE Enterprise Linux (SLES)          | 12 SP5+                 | x64                                
 
 
 # C, UNCERTAIN ABOUT COMPATIBILITY
