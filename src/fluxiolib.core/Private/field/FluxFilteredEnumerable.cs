@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿#if NET8_0_OR_GREATER
+using System.Collections;
 
 namespace fluxiolib.Internal;
 
@@ -7,7 +8,7 @@ internal readonly unsafe struct FluxFilteredEnumerable : IEnumerable<FluxRuntime
     private readonly MethodTable* pTable;
     private readonly FluxMemberFilter filter;
 
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+    [MethodImpl(HOME.__inline)]
     public FluxFilteredEnumerable(
         scoped ref readonly MethodTable pMT, 
         scoped ref readonly FluxMemberFilter pFilter)
@@ -16,7 +17,7 @@ internal readonly unsafe struct FluxFilteredEnumerable : IEnumerable<FluxRuntime
         filter = pFilter;
     }
 
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+    [MethodImpl(HOME.__inline)]
     public Enumerator GetEnumerator() => new(in this);
 
     IEnumerator<FluxRuntimeFieldDesc> IEnumerable<FluxRuntimeFieldDesc>.GetEnumerator() => GetEnumerator();
@@ -54,7 +55,7 @@ internal readonly unsafe struct FluxFilteredEnumerable : IEnumerable<FluxRuntime
         }
         readonly object IEnumerator.Current => Current;
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        [MethodImpl(HOME.__inline)]
         public readonly bool MoveNext() => fpMoveNext(in this);
 
         public void Reset() => fpMoveNext = &STEP1_ReadyForEnumerator;
@@ -173,3 +174,4 @@ internal readonly unsafe struct FluxFilteredEnumerable : IEnumerable<FluxRuntime
         }
     }
 }
+#endif

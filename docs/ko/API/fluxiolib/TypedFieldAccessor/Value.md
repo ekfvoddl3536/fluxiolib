@@ -3,7 +3,7 @@
 *reference* 참조에서 필드 데이터를 읽습니다.
 
 ```csharp
-public TField Value<TField>(object reference)
+public ref TField Value<TField>(object reference)
 ```
 
 | parameter | description |
@@ -27,7 +27,8 @@ public TField Value<TField>(object reference)
 *reference* 참조에서 필드 데이터를 읽습니다.
 
 ```csharp
-public TField Value<TField>(TypedReference reference)
+[CLSCompliant(false)]
+public ref TField Value<TField>(TypedReference reference)
 ```
 
 | parameter | description |

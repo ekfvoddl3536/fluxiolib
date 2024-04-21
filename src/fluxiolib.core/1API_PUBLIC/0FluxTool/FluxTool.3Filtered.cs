@@ -1,4 +1,5 @@
-﻿using fluxiolib.Internal;
+﻿#if NET8_0_OR_GREATER
+using fluxiolib.Internal;
 using System.Diagnostics.CodeAnalysis;
 
 namespace fluxiolib;
@@ -52,3 +53,4 @@ static unsafe partial class FluxTool
         return GetInstanceFieldList_Unsafe(in pMT, protection, cortype, index, count);
     }
 }
+#endif

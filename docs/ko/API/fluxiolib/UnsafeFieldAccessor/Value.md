@@ -3,7 +3,7 @@
 *reference* 참조에서 필드 데이터를 읽습니다.
 
 ```csharp
-public TField Value<TField>(ref byte reference)
+public ref TField Value<TField>(scoped ref readonly byte reference)
 ```
 
 | parameter | description |
@@ -17,7 +17,7 @@ public TField Value<TField>(ref byte reference)
 
 ## Remarks
 
-이 API는 매개변수의 유효성을 검사하지 않습니다.
+이 API는 매개변수나 개체 상태의 유효성을 검사하지 않습니다.
 
 ## See Also
 
@@ -31,7 +31,7 @@ public TField Value<TField>(ref byte reference)
 *reference* 참조에서 필드 데이터를 읽습니다.
 
 ```csharp
-public TField Value<TField>(object reference)
+public ref TField Value<TField>(object reference)
 ```
 
 | parameter | description |
@@ -45,7 +45,7 @@ public TField Value<TField>(object reference)
 
 ## Remarks
 
-이 API는 매개변수의 유효성을 검사하지 않습니다.
+이 API는 매개변수나 개체 상태의 유효성을 검사하지 않습니다.
 
 ## See Also
 

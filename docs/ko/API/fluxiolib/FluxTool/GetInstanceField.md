@@ -27,6 +27,7 @@ public static FluxRuntimeFieldDesc GetInstanceField(Type t, SStringUtf8 utf8Name
 ## See Also
 
 * struct [FluxRuntimeFieldDesc](../FluxRuntimeFieldDesc.md)
+* struct [SStringUtf8](../SStringUtf8.md)
 * enum [ProtFlags](../ProtFlags.md)
 * enum [TypeFlags](../TypeFlags.md)
 * struct [FluxSearchSpace](../FluxSearchSpace.md)
@@ -60,6 +61,7 @@ public static FluxRuntimeFieldDesc GetInstanceField<T>(SStringUtf8 utf8Name,
 ## See Also
 
 * struct [FluxRuntimeFieldDesc](../FluxRuntimeFieldDesc.md)
+* struct [SStringUtf8](../SStringUtf8.md)
 * enum [ProtFlags](../ProtFlags.md)
 * enum [TypeFlags](../TypeFlags.md)
 * struct [FluxSearchSpace](../FluxSearchSpace.md)

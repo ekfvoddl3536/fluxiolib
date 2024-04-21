@@ -1,4 +1,5 @@
-﻿using fluxiolib;
+﻿#if !__FEATURES_MINI__
+using fluxiolib;
 using System.Diagnostics.CodeAnalysis;
 
 namespace FluxIOLib.Test;
@@ -45,3 +46,4 @@ public class ComplexTest2
         Assert.IsTrue(names.Contains("department"), "'region' not found");
     }
 }
+#endif

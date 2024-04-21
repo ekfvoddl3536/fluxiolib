@@ -1,8 +1,18 @@
 # FluxTool.ToRuntimeFieldDesc method (1 of 2)
 
+*fdInfo*를 필드 설명자로 변환합니다.
+
 ```csharp
 public static FluxRuntimeFieldDesc ToRuntimeFieldDesc(FieldInfo fdInfo)
 ```
+
+| parameter | description |
+| --- | --- |
+| fdInfo | 유효한 필드 정보입니다. |
+
+## Return Value
+
+필드를 설명하는 [`FluxRuntimeFieldDesc`](../FluxRuntimeFieldDesc.md) 객체입니다.
 
 ## See Also
 
@@ -14,9 +24,19 @@ public static FluxRuntimeFieldDesc ToRuntimeFieldDesc(FieldInfo fdInfo)
 
 # FluxTool.ToRuntimeFieldDesc method (2 of 2)
 
+*fdHandle*를 필드 설명자로 변환합니다.
+
 ```csharp
 public static FluxRuntimeFieldDesc ToRuntimeFieldDesc(RuntimeFieldHandle fdHandle)
 ```
+
+| parameter | description |
+| --- | --- |
+| fdHandle | 유효한 런타임 필드 핸들입니다. |
+
+## Return Value
+
+필드를 설명하는 [`FluxRuntimeFieldDesc`](../FluxRuntimeFieldDesc.md) 객체입니다.
 
 ## See Also
 

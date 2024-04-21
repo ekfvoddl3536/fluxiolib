@@ -1,4 +1,5 @@
-﻿namespace fluxiolib.Internal;
+﻿#if NET8_0_OR_GREATER
+namespace fluxiolib.Internal;
 
 [StructLayout(LayoutKind.Sequential, Pack = 16)]
 internal readonly unsafe struct PEAssemblyFake
@@ -10,3 +11,4 @@ internal readonly unsafe struct PEAssemblyFake
     // MD = Metadata
     public readonly nint pMDImport;
 }
+#endif

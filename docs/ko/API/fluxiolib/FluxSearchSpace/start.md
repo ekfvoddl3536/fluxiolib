@@ -1,5 +1,7 @@
 # FluxSearchSpace.start field
 
+검색을 시작할 인덱스
+
 ```csharp
 public readonly int start;
 ```

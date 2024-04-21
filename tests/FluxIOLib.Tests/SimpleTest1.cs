@@ -1,11 +1,13 @@
 using fluxiolib;
 using System.Diagnostics.CodeAnalysis;
+using System.Reflection;
 
 namespace FluxIOLib.Test;
 
 [TestClass]
 public class SimpleTest1
 {
+#if !__FEATURES_MINI__
     [TestMethod]
     [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(Employee))]
     public void QueryNumInstanceFields()
@@ -47,5 +49,36 @@ public class SimpleTest1
         Assert.IsTrue(getName.Length > 0, "Fail get utf8 field name.");
 
         Assert.IsTrue(getName.AsSpan().SequenceEqual("age"u8), "FieldName does not match.", getName.ToString(), "age");
+    }
+#endif
+
+    [TestMethod]
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(SeniorManager))]
+    public void WithReflection()
+    {
+        const BindingFlags FLAGS =
+            BindingFlags.Public |
+            BindingFlags.NonPublic |
+            BindingFlags.Instance;
+
+        const string FIELD_NAME = "teamSize";
+
+        const int EXPECTED_VALUE = 8000;
+
+        var field = typeof(SeniorManager).GetField(FIELD_NAME, FLAGS);
+
+        Assert.IsNotNull(field, $"'{FIELD_NAME}' field is missing.");
+
+        var accessor = FluxTool.GetFieldAccessor(field);
+
+        Assert.IsTrue(accessor.Offset >= 0, "Invalid field offset");
+
+        var instance = new SeniorManager("Manager", 35, Department.Engineering, 20, "Asia");
+
+        accessor.Value<int>(instance) = EXPECTED_VALUE;
+
+        int actualValue = (int)field.GetValue(instance)!;
+
+        Assert.AreEqual(EXPECTED_VALUE, actualValue, "Failed to set field data");
     }
 }

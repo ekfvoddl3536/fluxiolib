@@ -1,4 +1,5 @@
-﻿namespace fluxiolib;
+﻿#if NET8_0_OR_GREATER
+namespace fluxiolib;
 
 static unsafe partial class StringMatchHelper
 {
@@ -20,3 +21,4 @@ static unsafe partial class StringMatchHelper
     [MethodImpl(MethodImplOptions.AggressiveOptimization)]
     private static bool EndsWith(in ReadOnlySpan<byte> l, in ReadOnlySpan<byte> r) => l.EndsWith(r);
 }
+#endif

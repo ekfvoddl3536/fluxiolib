@@ -1,4 +1,5 @@
-﻿#pragma warning disable
+﻿#if NET8_0_OR_GREATER
+#pragma warning disable
 namespace fluxiolib;
 
 internal sealed class RtType
@@ -8,3 +9,4 @@ internal sealed class RtType
     public readonly nint m_cache;
     public readonly nint m_handle;
 }
+#endif

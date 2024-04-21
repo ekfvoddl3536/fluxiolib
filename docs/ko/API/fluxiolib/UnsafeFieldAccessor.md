@@ -3,7 +3,7 @@
 타입 제약을 포함하지 않는 고속 필드 접근자(FieldAccessor) 객체입니다.
 
 ```csharp
-public struct UnsafeFieldAccessor : IEquatable<UnsafeFieldAccessor>
+public readonly struct UnsafeFieldAccessor : IEquatable<UnsafeFieldAccessor>
 ```
 
 ## Public Members
@@ -21,7 +21,7 @@ public struct UnsafeFieldAccessor : IEquatable<UnsafeFieldAccessor>
 
 ## Remarks
 
-이 API는 매개변수의 유효성을 검사하지 않습니다.
+이 API는 매개변수나 개체 상태의 유효성을 검사하지 않습니다.
 
 ## See Also
 

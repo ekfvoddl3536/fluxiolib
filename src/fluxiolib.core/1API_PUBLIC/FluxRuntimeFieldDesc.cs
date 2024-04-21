@@ -1,4 +1,5 @@
-﻿using fluxiolib.Internal;
+﻿#if NET8_0_OR_GREATER
+using fluxiolib.Internal;
 using System.Text;
 
 namespace fluxiolib;
@@ -38,7 +39,7 @@ public readonly unsafe struct FluxRuntimeFieldDesc : IEquatable<FluxRuntimeField
     /// </summary>
     public bool IsNull
     {
-        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        [MethodImpl(HOME.__inline)]
         get => m_fieldDesc.pMethodTable == null;
     }
 
@@ -57,7 +58,7 @@ public readonly unsafe struct FluxRuntimeFieldDesc : IEquatable<FluxRuntimeField
     /// </summary>
     public int FieldOffset
     {
-        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        [MethodImpl(HOME.__inline)]
         get
         {
             int x = -1;
@@ -123,6 +124,7 @@ public readonly unsafe struct FluxRuntimeFieldDesc : IEquatable<FluxRuntimeField
         return v;
     }
 
+#pragma warning disable CS1591
     public bool Equals(FluxRuntimeFieldDesc other) => FieldDesc.Equals(in m_fieldDesc, in other.m_fieldDesc);
 
     public override bool Equals(object? obj) => obj is FluxRuntimeFieldDesc other && Equals(other);
@@ -130,8 +132,9 @@ public readonly unsafe struct FluxRuntimeFieldDesc : IEquatable<FluxRuntimeField
 
     public static bool operator ==(FluxRuntimeFieldDesc left, FluxRuntimeFieldDesc right) => left.Equals(right);
     public static bool operator !=(FluxRuntimeFieldDesc left, FluxRuntimeFieldDesc right) => !(left == right);
+#pragma warning restore CS1591
 
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+    [MethodImpl(HOME.__inline)]
     internal static Type? GetApproxDeclaringType(nint pMethodTable) =>
         Type.GetTypeFromHandle(RuntimeTypeHandle.FromIntPtr(pMethodTable));
 
@@ -140,3 +143,4 @@ public readonly unsafe struct FluxRuntimeFieldDesc : IEquatable<FluxRuntimeField
         $"Type: {FieldCorType}, Offset: {FieldAccessor.getDebugString()}, Name: {GetNameWithoutCaching()}";
 #endif
 }
+#endif

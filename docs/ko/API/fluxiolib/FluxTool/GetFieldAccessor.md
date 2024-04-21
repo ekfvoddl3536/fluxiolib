@@ -1,8 +1,18 @@
 # FluxTool.GetFieldAccessor method (1 of 2)
 
+필드 접근자를 가져옵니다.
+
 ```csharp
 public static UnsafeFieldAccessor GetFieldAccessor(FieldInfo fdInfo)
 ```
+
+| parameter | description |
+| --- | --- |
+| fdInfo | 유효한 필드 정보입니다. |
+
+## Return Value
+
+필드 접근자
 
 ## See Also
 
@@ -14,9 +24,19 @@ public static UnsafeFieldAccessor GetFieldAccessor(FieldInfo fdInfo)
 
 # FluxTool.GetFieldAccessor method (2 of 2)
 
+필드 접근자를 가져옵니다.
+
 ```csharp
 public static UnsafeFieldAccessor GetFieldAccessor(RuntimeFieldHandle fdHandle)
 ```
+
+| parameter | description |
+| --- | --- |
+| fdHandle | 유효한 런타임 필드 핸들입니다. |
+
+## Return Value
+
+필드 접근자
 
 ## See Also
 

@@ -16,6 +16,9 @@
 
 # Develop-tool directory / Custom file / Solution file
 *.sln
+*.bak
+[Rr]untime/
+[Rr]untimes/
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs

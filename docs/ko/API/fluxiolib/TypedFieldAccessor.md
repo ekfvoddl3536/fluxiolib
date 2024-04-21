@@ -3,7 +3,7 @@
 타입 제약을 포함하여 보다 안전하게 사용가능한 FieldAccessor.
 
 ```csharp
-public struct TypedFieldAccessor : IEquatable<TypedFieldAccessor>
+public readonly struct TypedFieldAccessor : IEquatable<TypedFieldAccessor>
 ```
 
 ## Public Members

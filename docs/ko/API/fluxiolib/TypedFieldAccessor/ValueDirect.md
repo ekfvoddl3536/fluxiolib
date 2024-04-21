@@ -3,7 +3,7 @@
 구조체 형식의 참조에서 필드 데이터를 읽습니다.
 
 ```csharp
-public TField ValueDirect<TStruct, TField>(ref TStruct reference)
+public ref TField ValueDirect<TStruct, TField>(scoped ref readonly TStruct reference)
     where TStruct : struct
 ```
 

@@ -1,4 +1,5 @@
-﻿namespace fluxiolib.Internal;
+﻿#if NET8_0_OR_GREATER
+namespace fluxiolib.Internal;
 
 [StructLayout(LayoutKind.Sequential, Pack = 16)]
 internal readonly unsafe struct ModuleFake
@@ -26,7 +27,8 @@ internal readonly unsafe struct ModuleFake
     public readonly nuint pSimpleName;
     public readonly PEAssemblyFake* pPEAssembly; // Win32NT Offset-> 0xB0
 
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+    [MethodImpl(HOME.__inline)]
     public static PEAssemblyFake* getPEAssembly(ModuleFake* pThis) =>
         *(PEAssemblyFake**)((byte*)&pThis->pPEAssembly + PlatformHelper.CSRTBASE_SIZE);
 }
+#endif

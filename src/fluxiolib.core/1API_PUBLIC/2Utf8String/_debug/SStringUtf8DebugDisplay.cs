@@ -1,4 +1,4 @@
-﻿#if DEBUG
+﻿#if DEBUG && NET8_0_OR_GREATER
 namespace fluxiolib;
 
 internal sealed class SStringUtf8DebugDisplay

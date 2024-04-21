@@ -3,7 +3,7 @@
 RuntimeFieldHandle의 핸들로 부터 필드 정보를 간단하게 서술합니다.
 
 ```csharp
-public struct FluxRuntimeFieldDesc : IEquatable<FluxRuntimeFieldDesc>
+public readonly struct FluxRuntimeFieldDesc : IEquatable<FluxRuntimeFieldDesc>
 ```
 
 ## Public Members

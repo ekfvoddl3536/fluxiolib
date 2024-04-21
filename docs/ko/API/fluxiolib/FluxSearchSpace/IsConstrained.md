@@ -1,5 +1,7 @@
 # FluxSearchSpace.IsConstrained property
 
+모든 상위 유형을 무시하고, 지정된 형식의 첫번째 필드부터 인덱스를 시작할 지 여부
+
 ```csharp
 public bool IsConstrained { get; }
 ```

@@ -1,4 +1,5 @@
-﻿namespace fluxiolib.Internal;
+﻿#if NET8_0_OR_GREATER
+namespace fluxiolib.Internal;
 
 unsafe partial class FieldDescList
 {
@@ -79,3 +80,4 @@ unsafe partial class FieldDescList
         return null;
     }
 }
+#endif

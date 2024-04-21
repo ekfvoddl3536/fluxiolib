@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿#if NET8_0_OR_GREATER
+using System.Diagnostics;
 
 namespace fluxiolib.Internal;
 
@@ -88,3 +89,4 @@ internal static unsafe partial class FieldDescList
         return true;
     }
 }
+#endif

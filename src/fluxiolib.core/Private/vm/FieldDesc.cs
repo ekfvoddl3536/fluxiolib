@@ -1,4 +1,11 @@
-﻿namespace fluxiolib.Internal;
+﻿#if NET8_0_OR_GREATER
+namespace fluxiolib.Internal;
+#else
+using System.Runtime.InteropServices;
+using System.Runtime.CompilerServices;
+
+namespace fluxiolib.Internal {
+#endif
 
 [StructLayout(LayoutKind.Sequential, Pack = 16)]
 internal readonly unsafe struct FieldDesc
@@ -15,10 +22,14 @@ internal readonly unsafe struct FieldDesc
     public const int FIELD_OFFSET_BIG_RVA = FIELD_OFFSET_MAX - 5;
     public const int FIELD_OFFSET_LAST_REAL_OFFSET = FIELD_OFFSET_MAX - 6;
     #endregion
-    
+
     #region fields
+#if NET8_0_OR_GREATER
     // PTR_MethodTable  m_pMTOfEnclosingClass
     public readonly MethodTable* pMethodTable;
+#else
+    public readonly System.IntPtr pMethodTable;
+#endif
 
     // m_mb                 : 24
     // m_isStatic           : 1
@@ -35,30 +46,31 @@ internal readonly unsafe struct FieldDesc
     #region property
     public uint Offset
     {
-        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        [MethodImpl(HOME.__inline)]
         get => dwOffset & FIELD_OFFSET_MAX;
     }
 
     public uint Prot
     {
-        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        [MethodImpl(HOME.__inline)]
         get => mb >> 27;
     }
 
     public uint Type
     {
-        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        [MethodImpl(HOME.__inline)]
         get => dwOffset >> 27;
     }
     #endregion
 
     #region static methods
+#if NET8_0_OR_GREATER
     // is instance member?
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+    [MethodImpl(HOME.__inline)]
     public static bool IsInstance(FieldDesc* pThis) => (pThis->mb & (1u << (24 + 1))) == 0;
 
     // attribute fast match
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+    [MethodImpl(HOME.__inline)]
     public static bool AttrMatch(FieldDesc* pThis, uint prot, uint type)
     {
         int s1 = (int)pThis->Prot;
@@ -70,7 +82,7 @@ internal readonly unsafe struct FieldDesc
     }
     
     // name match
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+    [MethodImpl(HOME.__inline)]
     public static bool NameMatch(FieldDesc* pThis, SStringUtf8 name)
     {
         // fpMatch가 null이면 AnyAccept 모드로 동작하도록 합니다.
@@ -87,7 +99,7 @@ internal readonly unsafe struct FieldDesc
         return SStringUtf8.Match(thisFieldName, name);
     }
 
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+    [MethodImpl(HOME.__inline)]
     public static bool Equals(scoped ref readonly FieldDesc a, scoped ref readonly FieldDesc b)
     {
         ref long pa = ref Unsafe.As<FieldDesc, long>(ref Unsafe.AsRef(in a));
@@ -97,8 +109,13 @@ internal readonly unsafe struct FieldDesc
             ((pa ^ pb) | (Unsafe.Add(ref pa, 1) ^ Unsafe.Add(ref pb, 1))) == 0;
     }
 
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+    [MethodImpl(HOME.__inline)]
     public static int GetHashCode(scoped ref readonly FieldDesc a) =>
         Unsafe.As<FieldDesc, UInt128>(ref Unsafe.AsRef(in a)).GetHashCode();
-    #endregion
+#endif
+#endregion
 }
+
+#if !NET8_0_OR_GREATER
+} // namespace 'fluxiolib.Internal'
+#endif

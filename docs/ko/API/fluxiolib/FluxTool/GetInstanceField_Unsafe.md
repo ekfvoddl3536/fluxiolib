@@ -27,6 +27,7 @@ public static FluxRuntimeFieldDesc GetInstanceField_Unsafe(Type t, SStringUtf8 u
 ## See Also
 
 * struct [FluxRuntimeFieldDesc](../FluxRuntimeFieldDesc.md)
+* struct [SStringUtf8](../SStringUtf8.md)
 * enum [ProtFlags](../ProtFlags.md)
 * enum [TypeFlags](../TypeFlags.md)
 * struct [FluxSearchSpace](../FluxSearchSpace.md)

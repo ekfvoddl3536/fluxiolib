@@ -1,4 +1,5 @@
-﻿using fluxiolib.Internal;
+﻿#if NET8_0_OR_GREATER
+using fluxiolib.Internal;
 using System.Diagnostics.CodeAnalysis;
 
 namespace fluxiolib;
@@ -53,3 +54,4 @@ static unsafe partial class FluxTool
         throw new InvalidOperationException("HRESULT -> 0x80131124 // at GetFieldName<T>");
     }
 }
+#endif

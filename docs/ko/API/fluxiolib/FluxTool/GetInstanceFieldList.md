@@ -1,8 +1,18 @@
 # FluxTool.GetInstanceFieldList method (1 of 3)
 
+모든 필드를 조회하여 필드 설명자 배열을 얻습니다. 정적 필드도 함께 검색됩니다.
+
 ```csharp
 public static FluxRuntimeFieldDesc[] GetInstanceFieldList(Type t)
 ```
+
+| parameter | description |
+| --- | --- |
+| t | 정보를 읽을 타입입니다. |
+
+## Return Value
+
+조회된 모든 필드의 필드 설명자가 들어있는 배열입니다.
 
 ## See Also
 

@@ -21,33 +21,56 @@
         </param>
     </ctor_arg1>
     <ctor_example1>
-        <example>
-            <![CDATA[
-            // Same as: left, input, other
-            SStringUtf8 other = "hello, world!"u8;
-            
-            // Same as: right, compare, me
-            SStringUtf8 me = new SStringUtf8("hello"u8, StringMatchType.StartsWith);
-            
-            bool r1 = me.Match(other); // TRUE
-            
-            bool r2 = other.Match(me); // FALSE
-          ]]>
+		<example>
+			<code>
+// Same as: left, input, other
+SStringUtf8 other = "hello, world!"u8;
+ 
+// Same as: right, compare, me
+SStringUtf8 me = new SStringUtf8("hello"u8, StringMatchType.StartsWith);
+ 
+bool r1 = me.Match(other); // TRUE
+ 
+bool r2 = other.Match(me); // FALSE
+			</code>
         </example>
     </ctor_example1>
     <ctor_example2>
-        <example>
-            <![CDATA[
-            // Same as: left, input, other
-            SStringUtf8 other = "hello, world!";
-            
-            // Same as: right, compare, me
-            SStringUtf8 me = new SStringUtf8("hello", StringMatchType.StartsWith);
-            
-            bool r1 = me.Match(other); // TRUE
-            
-            bool r2 = other.Match(me); // FALSE
-          ]]>
-        </example>
+		<example>
+			<code>
+// Same as: left, input, other
+SStringUtf8 other = "hello, world!";
+ 
+// Same as: right, compare, me
+SStringUtf8 me = new SStringUtf8("hello", StringMatchType.StartsWith);
+ 
+bool r1 = me.Match(other); // TRUE
+ 
+bool r2 = other.Match(me); // FALSE
+			</code>
+		</example>
     </ctor_example2>
+	<ctor_exmaple3>
+		<example>
+			<code>
+private static void TestMethod()
+{
+    // Same as: left, input, other
+    SStringUtf8 other = "hello, world!"u8;
+     
+    // Same as: right, compare, me
+    SStringUtf8 me = new SStringUtf8("world!"u8, &amp;MyCallback);
+     
+    bool r1 = me.Match(other); // TRUE
+     
+    bool r2 = other.Match(me); // FALSE
+}
+
+private static bool MyCallback(in ReadOnlySpan&lt;byte&gt; other, in ReadOnlySpan&lt;byte&gt; me)
+{
+    return other.EndsWith(me);
+}
+			</code>
+		</example>
+	</ctor_exmaple3>
 </docs>

@@ -1,4 +1,5 @@
-﻿namespace fluxiolib.Internal;
+﻿#if NET8_0_OR_GREATER
+namespace fluxiolib.Internal;
 
 // "typedef struct _RTL_CRITICAL_SECTION"
 [StructLayout(LayoutKind.Sequential, Pack = sizeof(long))]
@@ -19,3 +20,4 @@ internal readonly unsafe struct RTL_CRST
     // [FieldOffset(0)]
     // public readonly pthread_mutex_t mutex; // is64Bit: sizeof(pthread_mutex_t) = 40
 }
+#endif

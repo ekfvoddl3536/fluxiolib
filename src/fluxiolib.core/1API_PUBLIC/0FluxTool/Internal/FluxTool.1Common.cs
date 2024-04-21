@@ -1,14 +1,19 @@
-﻿using fluxiolib.Internal;
+﻿#if NET8_0_OR_GREATER
+using fluxiolib.Internal;
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 
 namespace fluxiolib;
+#else
+namespace fluxiolib {
+#endif
 
 /// <summary>
 /// Provides all the features provided by <see cref="fluxiolib"/>. 
 /// </summary>
 public static unsafe partial class FluxTool
 {
+#if NET8_0_OR_GREATER
     private const BindingFlags INSTANCE_ALL = 
         BindingFlags.Public | 
         BindingFlags.NonPublic | 
@@ -18,7 +23,7 @@ public static unsafe partial class FluxTool
         DynamicallyAccessedMemberTypes.PublicFields | 
         DynamicallyAccessedMemberTypes.NonPublicFields;
 
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+    [MethodImpl(HOME.__inline)]
     internal static ref readonly MethodTable GetMethodTable(Type t)
     {
         var tyHnd = t.TypeHandle.Value;
@@ -36,4 +41,9 @@ public static unsafe partial class FluxTool
             ? ref result
             : ref *(MethodTable*)pCannonMT;
     }
+#endif
 }
+
+#if !NET8_0_OR_GREATER
+} // namespace 'fluxiolib'
+#endif

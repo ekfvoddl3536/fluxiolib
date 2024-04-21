@@ -1,4 +1,15 @@
 # FluxIO 사용자 가이드 - 기본 사용법
+## 목차
+- [FluxIO 사용자 가이드 - 기본 사용법](#fluxio-사용자-가이드---기본-사용법)
+  - [목차](#목차)
+  - [공통](#공통)
+  - [`ProtFlags`와 `TypeFlags` 사용하기](#protflags와-typeflags-사용하기)
+    - [Example](#example)
+  - [`FluxSearchSpace` 사용하기](#fluxsearchspace-사용하기)
+  - [`SStringUtf8` 사용하기](#sstringutf8-사용하기)
+  - [`Reflection`과 함께 사용하기 (*권장*)](#reflection과-함께-사용하기-권장)
+  - [다른 문서](#다른-문서)
+
 ## 공통
 문서 내에서 자주 언급될 클래스들을 여기에 모아두었습니다.  
   
@@ -117,7 +128,7 @@ FluxRuntimeFieldDesc fd_m2;
 
 FluxSearchSpace space;
 
-space = new FluxSearchSpace(start: 0, count: 2); // default 'isConstrained' is FALSE.
+space = new FluxSearchSpace(start: 0, count: 2); // 'isConstrained'의 기본 값은 FALSE.
 
 fd_m1 = FluxTool.GetInstanceField(
             typeof(Foo3_XYZ),
@@ -125,7 +136,7 @@ fd_m1 = FluxTool.GetInstanceField(
             ProtFlags.Public,
             TypeFlags.ALL,
             space);
-            // RESULT: Foo1.x
+            // 결과: Foo1.x
 
 space = new FluxSearchSpace(start: 0, count: 2, isConstrained: true);
 
@@ -135,7 +146,7 @@ fd_m2 = FluxTool.GetInstanceField(
             ProtFlags.Public,
             TypeFlags.ALL,
             space);
-            // RESULT: Foo3_XYZ.x
+            // 결과: Foo3_XYZ.x
 
 Console.Write("isConstrained = false: FieldOffset: ");
 Console.WriteLine(fd_m1.FieldOffset);
@@ -191,7 +202,7 @@ fd_k2 = FluxTool.GetInstanceField(
             name,
             ProtFlags.Family,
             TypeFlags.I4);
-            // RESULT: Manager.teamSize
+            // 결과: Manager.teamSize
 
 Console.Write("FieldOffset: ");
 Console.WriteLine(fd_k2.FieldOffset);
@@ -212,10 +223,10 @@ FluxRuntimeFieldDesc fd_k1;
 
 fd_k1 = FluxTool.GetInstanceField(
             typeof(SeniorManager),
-            SStringUtf8.AnyAccept, // Accepts any input string, without performing any string comparison
+            SStringUtf8.AnyAccept, // 모든 입력 문자열을 수락하고, 문자열 비교를 수행하지 않습니다.
             ProtFlags.Assembly,
             TypeFlags.ALL);
-            // RESULT: Employee.department
+            // 결과: Employee.department
 
 Console.Write("FieldOffset: ");
 Console.WriteLine(fd_k1.FieldOffset);
@@ -227,9 +238,37 @@ Console.WriteLine(fd_k1.GetNameWithoutCaching());
 //  FieldOffset: 12
 //  FieldName: department
 ```
+
+
+## `Reflection`과 함께 사용하기 (*권장*)
+단일 필드 조회 성능은 Reflection이 상당히 좋습니다. ([벤치마크 결과](../Benchmark.Result.md#table)를 살펴보십시오.)  
+    
+때문에, 특별한 이유가 없다면 `Reflection`을 사용하여 필드를 조회하고 필드에 액세스할 때엔 `FluxIO`를 사용하는 것이 좋습니다.  
+   
+```csharp
+FieldInfo fdInfo;
+
+// 필드를 찾습니다. (Reflection 이용)
+fdInfo = typeof(SeniorManager).GetField("teamSize", BindingFlags.NonPublic | BindingFlags.Instance)!;
+
+FluxRuntimeFieldDesc fdDesc;
+
+// 필드에 액세스하기 위해, 변환합니다.
+// 또다른 방법으로 GetFieldAccessor와 GetSafeFieldAccessor도 있습니다. 자세한 것은 API문서를 참고해주세요.
+fdDesc = FluxTool.ToRuntimeFieldDesc(fdInfo);
+
+SeniorManager senior = new SeniorManager();
+
+// 필드에 접근합니다. 데이터를 읽거나 수정할 수 있습니다.
+fdDesc.FieldAccessor.Value<int>(senior) = 250;
+```
+
   
   
 ## 다른 문서
 이러한 문서들도 살펴보십시오.  
 - [고급 사용법 가이드](./AdvancedUsage.md)  
 - [API 문서](./API/fluxiolib.md)  
+- [빌드 결과물 얻기](./GetBuildArtifacts.md)  
+- [벤치마크 결과](../Benchmark.Result.md)  
+- [시스템 호환성](../Compatibility.md)  

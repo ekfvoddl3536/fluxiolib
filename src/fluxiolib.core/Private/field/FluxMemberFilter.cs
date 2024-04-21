@@ -1,4 +1,5 @@
-﻿namespace fluxiolib.Internal;
+﻿#if NET8_0_OR_GREATER
+namespace fluxiolib.Internal;
 
 [StructLayout(LayoutKind.Sequential, Pack = 16)]
 internal struct FluxMemberFilter
@@ -21,3 +22,4 @@ internal struct FluxMemberFilter
         get => (bitMask_prot | bitMask_type) == 0;
     }
 }
+#endif

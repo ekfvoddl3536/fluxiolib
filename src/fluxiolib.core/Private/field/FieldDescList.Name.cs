@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿#if NET8_0_OR_GREATER
+using System.Text;
 
 namespace fluxiolib.Internal;
 
@@ -58,3 +59,4 @@ static unsafe partial class FieldDescList
         return HRESULT_FAIL;
     }
 }
+#endif

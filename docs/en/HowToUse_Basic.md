@@ -1,4 +1,15 @@
 # FluxIO Usage Guide
+## Table of Contents
+- [FluxIO Usage Guide](#fluxio-usage-guide)
+  - [Table of Contents](#table-of-contents)
+  - [Common](#common)
+  - [Using `ProtFlags` and `TypeFlags`](#using-protflags-and-typeflags)
+    - [Example](#example)
+  - [Using `FluxSearchSpace`](#using-fluxsearchspace)
+  - [Using `SStringUtf8`](#using-sstringutf8)
+  - [With `Reflection` (*recommend*)](#with-reflection-recommend)
+  - [See Also](#see-also)
+
 ## Common
 To prevent the page from becoming long, declarations commonly used in example code are placed here.  
   
@@ -220,8 +231,36 @@ Console.WriteLine(fd_k1.GetNameWithoutCaching());
 //  FieldName: department
 ```
 
+
+## With `Reflection` (*recommend*)
+Single field lookup performance is quite good with Reflection. (See the [benchmark results](../Benchmark.Result.md#table).)   
+  
+Therefore, unless there is a specific reason not to, it is advisable to use `Reflection` for field lookups and `FluxIO` for field access.  
+  
+```csharp
+FieldInfo fdInfo;
+
+// Search the field.
+fdInfo = typeof(SeniorManager).GetField("teamSize", BindingFlags.NonPublic | BindingFlags.Instance)!;
+
+FluxRuntimeFieldDesc fdDesc;
+
+// To access the fields, convert to FluxRuntimeFieldDesc.
+fdDesc = FluxTool.ToRuntimeFieldDesc(fdInfo);
+
+SeniorManager senior = new SeniorManager();
+
+// Access fields, read or modify data.
+fdDesc.FieldAccessor.Value<int>(senior) = 250;
+```
+
+
+
 ## See Also
 - [Advanced Usage Guide (Korean)](./../ko/AdvancedUsage.md)  
 - [API Document (Korean)](./../ko/API/fluxiolib.md)  
+- [Obtaining Build Artifacts](./GetBuildArtifacts.md)
+- [Benchmark Results](../Benchmark.Result.md)
+- [System Compatibility](../Compatibility.md)
   
-*As the English document is not yet ready, it has been replaced with a link to a document written in Korean.*
+*Some documents are linked to the **Korean** versions as the **English** documents are not yet prepared.*  

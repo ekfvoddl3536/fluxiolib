@@ -1,4 +1,5 @@
-﻿#pragma warning disable FLXLIB0201
+﻿#if NET8_0_OR_GREATER
+#pragma warning disable FLXLIB0201
 using fluxiolib.Internal;
 
 namespace fluxiolib;
@@ -38,8 +39,9 @@ internal static unsafe partial class StringMatchHelper
 
         public delegate* managed<in ReadOnlySpan<byte>, in ReadOnlySpan<byte>, bool> this[int index]
         {
-            [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+            [MethodImpl(HOME.__inline)]
             get => (delegate* managed<in ReadOnlySpan<byte>, in ReadOnlySpan<byte>, bool>)Unsafe.Add(ref Unsafe.AsRef(in first), index);
         }
     }
 }
+#endif

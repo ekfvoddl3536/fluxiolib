@@ -1,4 +1,5 @@
-﻿namespace fluxiolib.Internal;
+﻿#if NET8_0_OR_GREATER
+namespace fluxiolib.Internal;
 
 [StructLayout(LayoutKind.Sequential, Pack = 16)]
 internal readonly unsafe struct EEClass
@@ -83,10 +84,11 @@ internal readonly unsafe struct EEClass
     /// <summary>
     /// <see cref="AttrClass"/> 이상의 필드에 액세스할 때, OS에 종속적인 오프셋 접근을 계산하여 값을 읽습니다
     /// </summary>
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+    [MethodImpl(HOME.__inline)]
     public static uint getValue(uint* pFieldValueRef) =>
         PlatformHelper.isWinNT
         ? *pFieldValueRef
             // unix adjust offset
         : *(uint*)((byte*)pFieldValueRef - (sizeof(nuint) + sizeof(nuint)));
 }
+#endif

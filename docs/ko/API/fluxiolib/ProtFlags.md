@@ -11,7 +11,7 @@ public enum ProtFlags
 
 | name | value | description |
 | --- | --- | --- |
-| None | `0x0` |  |
+| None | `0x0` | 아무것도 지정하지 않습니다. |
 | Invalid | `0x1` | 잘못된 접근제한자 |
 | Private | `0x2` | `private` |
 | FamilyANDAssembly | `0x4` | `private protected` -OR- `protected private` |

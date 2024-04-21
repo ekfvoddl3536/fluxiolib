@@ -7,7 +7,9 @@
 | struct [FluxRuntimeFieldDesc](./fluxiolib/FluxRuntimeFieldDesc.md) | RuntimeFieldHandle의 핸들로 부터 필드 정보를 간단하게 서술합니다. |
 | struct [FluxSearchSpace](./fluxiolib/FluxSearchSpace.md) | 검색할 필드의 범위를 설정합니다. |
 | static class [FluxTool](./fluxiolib/FluxTool.md) | Provides all the features provided by fluxiolib. |
+| static class [PlatformHelper](./fluxiolib/PlatformHelper.md) | 플랫폼과 런타임에 관련된 정보를 가져오는 도우미 클래스 |
 | [Flags] enum [ProtFlags](./fluxiolib/ProtFlags.md) | 필드의 접근 제한자 수준을 나타냅니다. |
+| struct [SStringUtf8](./fluxiolib/SStringUtf8.md) | 간단한 UTF8 문자열. |
 | enum [StringMatchType](./fluxiolib/StringMatchType.md) | 문자열 매칭의 유형을 나타냅니다 |
 | struct [TypedFieldAccessor](./fluxiolib/TypedFieldAccessor.md) | 타입 제약을 포함하여 보다 안전하게 사용가능한 FieldAccessor. |
 | [Flags] enum [TypeFlags](./fluxiolib/TypeFlags.md) | 필드의 CorElementType 유형을 나타냅니다. |

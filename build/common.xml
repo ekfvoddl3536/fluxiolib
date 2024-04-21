@@ -19,7 +19,6 @@
         <CLSCompliant>true</CLSCompliant>
         <ComVisible>false</ComVisible>
         
-        <Nullable>enable</Nullable>
         <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
     </PropertyGroup>
     

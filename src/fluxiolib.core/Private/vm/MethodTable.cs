@@ -1,4 +1,5 @@
-﻿namespace fluxiolib.Internal;
+﻿#if NET8_0_OR_GREATER
+namespace fluxiolib.Internal;
 
 [StructLayout(LayoutKind.Sequential, Pack = 16)]
 internal readonly unsafe struct MethodTable
@@ -40,7 +41,7 @@ internal readonly unsafe struct MethodTable
     // == 48 bytes ==                   END OF FIELDS
     //
 
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+    [MethodImpl(HOME.__inline)]
     public static uint GetNumInstanceFields(scoped ref readonly MethodTable pMT)
     {
         var pClass = pMT.pEEClass;
@@ -56,3 +57,4 @@ internal readonly unsafe struct MethodTable
         return v1;
     }
 }
+#endif

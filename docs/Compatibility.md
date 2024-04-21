@@ -1,3 +1,17 @@
+# Table of Contents
+- [Table of Contents](#table-of-contents)
+- [A, TEST PASSED](#a-test-passed)
+- [B, EXPECTED TO BE COMPATIBLE](#b-expected-to-be-compatible)
+  - [Windows](#windows)
+  - [Linux](#linux)
+- [C, UNCERTAIN ABOUT COMPATIBILITY](#c-uncertain-about-compatibility)
+  - [Windows](#windows-1)
+  - [Android](#android)
+  - [iOS / tvOS / MacCatalyst](#ios--tvos--maccatalyst)
+- [F, NOT COMPATIBILITY](#f-not-compatibility)
+
+
+
 # A, TEST PASSED
 List of systems and .NET runtimes that passed testing.  
 OS                                    | OS Version              | Architecture            | .NET

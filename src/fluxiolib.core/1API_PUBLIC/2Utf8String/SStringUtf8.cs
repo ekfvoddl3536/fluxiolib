@@ -1,4 +1,5 @@
-﻿#pragma warning disable FLXLIB0201
+﻿#if NET8_0_OR_GREATER
+#pragma warning disable FLXLIB0201
 using System.Text;
 
 namespace fluxiolib;
@@ -29,7 +30,7 @@ public readonly unsafe ref struct SStringUtf8
     /// <include file='0docs/SStringUtf8.xml' path='docs/ctor_1/*'/>
     /// <include file='0docs/SStringUtf8.xml' path='docs/ctor_arg1/*'/>
     /// <include file='0docs/SStringUtf8.xml' path='docs/ctor_example1/*'/>
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+    [MethodImpl(HOME.__inline)]
     public SStringUtf8(ReadOnlySpan<byte> utf8String, StringMatchType type = StringMatchType.Default)
     {
         ArgumentOutOfRangeException.ThrowIfGreaterThanOrEqual((uint)type, (uint)StringMatchType.Reserved, nameof(type));
@@ -41,7 +42,7 @@ public readonly unsafe ref struct SStringUtf8
 
     /// <include file='0docs/SStringUtf8.xml' path='docs/ctor_2/*'/>
     /// <include file='0docs/SStringUtf8.xml' path='docs/ctor_example2/*'/>
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+    [MethodImpl(HOME.__inline)]
     public SStringUtf8(ReadOnlySpan<char> utf16String, StringMatchType type = StringMatchType.Default)
     {
         ArgumentOutOfRangeException.ThrowIfGreaterThanOrEqual((uint)type, (uint)StringMatchType.Reserved, nameof(type));
@@ -57,7 +58,8 @@ public readonly unsafe ref struct SStringUtf8
     /// <para/>
     /// 시그니처: <see langword="bool"/> fpMatch(<see langword="in"/> <see cref="ReadOnlySpan{T}"/> other, <see langword="in"/> <see cref="ReadOnlySpan{T}"/> <paramref name="utf8String"/>);
     /// </param>
-    [CLSCompliant(false), MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+    /// <include file='0docs/SStringUtf8.xml' path='docs/ctor_exmaple3/*'/>
+    [CLSCompliant(false), MethodImpl(HOME.__inline)]
     public SStringUtf8(ReadOnlySpan<byte> utf8String, delegate* managed<in ReadOnlySpan<byte>, in ReadOnlySpan<byte>, bool> fpMatch)
     {
         this.utf8String = utf8String;
@@ -69,7 +71,7 @@ public readonly unsafe ref struct SStringUtf8
     /// </summary>
     public int Length
     {
-        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        [MethodImpl(HOME.__inline)]
         get => utf8String.Length;
     }
 
@@ -80,39 +82,48 @@ public readonly unsafe ref struct SStringUtf8
     /// <returns>읽은 문자입니다.</returns>
     public byte this[int index]
     {
-        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        [MethodImpl(HOME.__inline)]
         get => utf8String[index];
     }
 
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+    /// <summary>
+    /// 이 <see cref="SStringUtf8"/> 개체가 표현하는 utf8 문자열을 <see cref="ReadOnlySpan{T}"/>으로 반환합니다.
+    /// </summary>
+    /// <returns>UTF8 문자열 데이터</returns>
+    [MethodImpl(HOME.__inline)]
     public ReadOnlySpan<byte> AsSpan() => utf8String;
 
-    // mov rax, rdx
-    // mov r8, [rcx+0x10]
-    // mov rdx, rcx
-    // mov rcx, rax
-    // jmp r8
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+    /// <summary>
+    /// 다른 문자열에 대하여 현재 문자열 비교를 수행합니다.
+    /// </summary>
+    /// <param name="otherUtf8String">다른 문자열</param>
+    /// <returns>비교에 성공하였는지 여부</returns>
+    [MethodImpl(HOME.__inline)]
     public bool Match(ReadOnlySpan<byte> otherUtf8String) => fpMatch(otherUtf8String, utf8String);
 
+    /// <summary>
+    /// 이 <see cref="SStringUtf8"/>가 표현하는 UTF8 문자열을 <see cref="string"/>으로 변환합니다.
+    /// </summary>
+    /// <returns>문자열</returns>
     public override string ToString() => Encoding.UTF8.GetString(utf8String);
 
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+#pragma warning disable CS1591
+    [MethodImpl(HOME.__inline)]
     public static implicit operator SStringUtf8(ReadOnlySpan<byte> utf8) => new(utf8, StringMatchType.Default);
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+    [MethodImpl(HOME.__inline)]
     public static implicit operator SStringUtf8(ReadOnlySpan<char> utf16) => new(utf16, StringMatchType.Default);
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+    [MethodImpl(HOME.__inline)]
     public static implicit operator SStringUtf8(string utf16) => new(utf16.AsSpan(), StringMatchType.Default);
 
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+    [MethodImpl(HOME.__inline)]
     public static implicit operator ReadOnlySpan<byte>(SStringUtf8 utf8) => utf8.utf8String;
-
     // mov rax, [rdx+0x10]
     // jmp rax
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+    [MethodImpl(HOME.__inline)]
     public static bool Match(ReadOnlySpan<byte> other, SStringUtf8 @this) => @this.fpMatch(in other, in @this.utf8String);
+#pragma warning restore CS1591
 
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+    [MethodImpl(HOME.__inline)]
     private static ReadOnlySpan<byte> ToUtf8(ReadOnlySpan<char> utf16)
     {
         var encoding = (UTF8Encoding)Encoding.UTF8;
@@ -144,3 +155,4 @@ public readonly unsafe ref struct SStringUtf8
     [System.Diagnostics.Conditional("DEBUG"), MethodImpl(MethodImplOptions.NoInlining | MethodImplOptions.NoOptimization)]
     public static void DebugView(scoped ref SStringUtf8 v) { }
 }
+#endif

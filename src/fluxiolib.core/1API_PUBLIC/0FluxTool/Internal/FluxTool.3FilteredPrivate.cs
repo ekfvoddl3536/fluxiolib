@@ -1,10 +1,11 @@
-﻿using fluxiolib.Internal;
+﻿#if NET8_0_OR_GREATER
+using fluxiolib.Internal;
 
 namespace fluxiolib;
 
 static unsafe partial class FluxTool
 {
-    [SkipLocalsInit, MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+    [SkipLocalsInit, MethodImpl(HOME.__inline)]
     private static IEnumerable<FluxRuntimeFieldDesc> GetInstanceFieldList_Unsafe(
         scoped ref readonly MethodTable pMT,
         ProtFlags protection,
@@ -22,7 +23,7 @@ static unsafe partial class FluxTool
         return new FluxFilteredEnumerable(in pMT, in filter);
     }
 
-    [SkipLocalsInit, MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+    [SkipLocalsInit, MethodImpl(HOME.__inline)]
     private static IEnumerable<FluxRuntimeFieldDesc> GetInstanceFieldList_OffLen(
         scoped ref readonly MethodTable pMT,
         ProtFlags protection,
@@ -41,3 +42,4 @@ static unsafe partial class FluxTool
         return GetInstanceFieldList_Unsafe(in pMT, protection, cortype, index, count);
     }
 }
+#endif

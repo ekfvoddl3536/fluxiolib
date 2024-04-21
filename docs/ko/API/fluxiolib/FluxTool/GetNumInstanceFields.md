@@ -1,6 +1,6 @@
 # FluxTool.GetNumInstanceFields method (1 of 2)
 
-필드 개수를 가져옵니다.
+지정된 형식이 갖고 있는 모든 인스턴스 필드 개수를 가져옵니다.
 
 ```csharp
 public static int GetNumInstanceFields(Type t)
@@ -8,11 +8,11 @@ public static int GetNumInstanceFields(Type t)
 
 | parameter | description |
 | --- | --- |
-| t | 정보를 읽을 타입 객체입니다. |
+| t | 정보를 읽을 타입입니다. |
 
 ## Return Value
 
-*t* 형식이 갖고 있는 필드의 개수입니다.
+조회된 인스턴스 필드의 개수입니다.
 
 ## See Also
 
@@ -23,7 +23,7 @@ public static int GetNumInstanceFields(Type t)
 
 # FluxTool.GetNumInstanceFields&lt;T&gt; method (2 of 2)
 
-필드 개수를 가져옵니다.
+지정된 형식이 갖고 있는 모든 인스턴스 필드 개수를 가져옵니다.
 
 ```csharp
 public static int GetNumInstanceFields<T>()
@@ -35,7 +35,7 @@ public static int GetNumInstanceFields<T>()
 
 ## Return Value
 
-*T* 형식이 갖고 있는 필드의 개수입니다.
+조회된 인스턴스 필드의 개수입니다.
 
 ## See Also
 

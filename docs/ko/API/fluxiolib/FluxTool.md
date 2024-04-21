@@ -10,21 +10,21 @@ public static class FluxTool
 
 | name | description |
 | --- | --- |
-| static [GetFieldAccessor](FluxTool/GetFieldAccessor.md)(…) |  (2 methods) |
+| static [GetFieldAccessor](FluxTool/GetFieldAccessor.md)(…) | 필드 접근자를 가져옵니다. (2 methods) |
 | static [GetFieldNames](FluxTool/GetFieldNames.md)(…) | 지정된 형식의 모든 필드 이름을 조회합니다. |
 | static [GetFieldNames&lt;T&gt;](FluxTool/GetFieldNames.md)() | 지정된 형식의 모든 필드 이름을 조회합니다. |
 | static [GetFieldNames_Unsafe](FluxTool/GetFieldNames_Unsafe.md)(…) | 지정된 형식의 모든 필드 이름을 조회합니다. |
 | static [GetInstanceField](FluxTool/GetInstanceField.md)(…) | 인스턴스 필드를 검색합니다. |
 | static [GetInstanceField&lt;T&gt;](FluxTool/GetInstanceField.md)(…) | 인스턴스 필드를 검색합니다. |
-| static [GetInstanceFieldList](FluxTool/GetInstanceFieldList.md)(…) |  (2 methods) |
+| static [GetInstanceFieldList](FluxTool/GetInstanceFieldList.md)(…) | 모든 필드를 조회하여 필드 설명자 배열을 얻습니다. 정적 필드도 함께 검색됩니다. (2 methods) |
 | static [GetInstanceFieldList&lt;T&gt;](FluxTool/GetInstanceFieldList.md)(…) | 주어진 조건에 따라 필터링하여 지정된 형식의 모든 필드를 조회합니다. |
-| static [GetInstanceFieldList_Unsafe](FluxTool/GetInstanceFieldList_Unsafe.md)(…) |  (2 methods) |
+| static [GetInstanceFieldList_Unsafe](FluxTool/GetInstanceFieldList_Unsafe.md)(…) | 모든 필드를 조회하여 필드 설명자 배열을 얻습니다. 정적 필드도 함께 검색됩니다. (2 methods) |
 | static [GetInstanceField_Unsafe](FluxTool/GetInstanceField_Unsafe.md)(…) | 인스턴스 필드를 검색합니다. |
-| static [GetNumInstanceFields](FluxTool/GetNumInstanceFields.md)(…) | 필드 개수를 가져옵니다. |
-| static [GetNumInstanceFields&lt;T&gt;](FluxTool/GetNumInstanceFields.md)() | 필드 개수를 가져옵니다. |
-| static [GetNumInstanceFields_Unsafe](FluxTool/GetNumInstanceFields_Unsafe.md)(…) | 필드 개수를 가져옵니다. |
-| static [GetSafeFieldAccessor](FluxTool/GetSafeFieldAccessor.md)(…) |  (2 methods) |
-| static [ToRuntimeFieldDesc](FluxTool/ToRuntimeFieldDesc.md)(…) |  (2 methods) |
+| static [GetNumInstanceFields](FluxTool/GetNumInstanceFields.md)(…) | 지정된 형식이 갖고 있는 모든 인스턴스 필드 개수를 가져옵니다. |
+| static [GetNumInstanceFields&lt;T&gt;](FluxTool/GetNumInstanceFields.md)() | 지정된 형식이 갖고 있는 모든 인스턴스 필드 개수를 가져옵니다. |
+| static [GetNumInstanceFields_Unsafe](FluxTool/GetNumInstanceFields_Unsafe.md)(…) | 지정된 형식이 갖고 있는 모든 인스턴스 필드 개수를 가져옵니다. |
+| static [GetSafeFieldAccessor](FluxTool/GetSafeFieldAccessor.md)(…) | 필드 접근자를 가져옵니다. (2 methods) |
+| static [ToRuntimeFieldDesc](FluxTool/ToRuntimeFieldDesc.md)(…) | *fdHandle*를 필드 설명자로 변환합니다. (2 methods) |
 
 ## See Also
 

@@ -1,6 +1,6 @@
 # FluxTool.GetNumInstanceFields_Unsafe method
 
-필드 개수를 가져옵니다.
+지정된 형식이 갖고 있는 모든 인스턴스 필드 개수를 가져옵니다.
 
 ```csharp
 public static int GetNumInstanceFields_Unsafe(Type t)
@@ -12,11 +12,11 @@ public static int GetNumInstanceFields_Unsafe(Type t)
 
 ## Return Value
 
-*t* 형식이 갖고 있는 필드의 개수입니다.
+조회된 인스턴스 필드의 개수입니다.
 
 ## Remarks
 
-이 API는 매개변수의 유효성 검사를 수행하지 않습니다.
+이 API는 매개변수나 개체 상태의 유효성을 검사하지 않습니다.
 
 ## See Also
 

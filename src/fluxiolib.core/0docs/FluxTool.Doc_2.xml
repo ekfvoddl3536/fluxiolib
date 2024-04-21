@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<docs>
+	<toRFD_ret>
+		<returns>
+			필드를 설명하는 <see cref="FluxRuntimeFieldDesc"/> 객체입니다.
+		</returns>
+	</toRFD_ret>
+	<para1>
+		<param name="fdHandle">유효한 런타임 필드 핸들입니다.</param>
+	</para1>
+	<para2>
+		<param name="fdInfo">유효한 필드 정보입니다.</param>
+	</para2>
+	<gFA>
+		<summary>
+			필드 접근자를 가져옵니다.
+		</summary>
+		<returns>필드 접근자</returns>
+	</gFA>
+	<getInstFdList>
+		<summary>
+			모든 필드를 조회하여 필드 설명자 배열을 얻습니다. 정적 필드도 함께 검색됩니다. 
+		</summary>
+		<returns>
+			조회된 모든 필드의 필드 설명자가 들어있는 배열입니다.
+		</returns>
+	</getInstFdList>
+	<getNumFds>
+		<summary>
+			지정된 형식이 갖고 있는 모든 인스턴스 필드 개수를 가져옵니다. 
+		</summary>
+		<returns>
+			조회된 인스턴스 필드의 개수입니다.
+		</returns>
+	</getNumFds>
+	<para_t1>
+		<param name="t">정보를 읽을 타입입니다.</param>
+	</para_t1>
+	<para_tG>
+		<typeparam name="T">정보를 읽을 타입입니다.</typeparam>
+	</para_tG>
+</docs>

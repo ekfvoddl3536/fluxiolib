@@ -1,5 +1,7 @@
 # FluxSearchSpace.count field
 
+검색을 시작할 인덱스부터 검색할 필드의 개수
+
 ```csharp
 public readonly int count;
 ```

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿#if NET8_0_OR_GREATER
+using System.ComponentModel;
 
 namespace fluxiolib;
 
@@ -56,3 +57,4 @@ public enum StringMatchType
     [EditorBrowsable(EditorBrowsableState.Never), Obsolete("This value has other uses.", false, DiagnosticId = "FLXLIB0201")]
     Reserved
 }
+#endif

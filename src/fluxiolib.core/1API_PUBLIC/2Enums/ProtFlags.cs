@@ -1,4 +1,5 @@
-﻿namespace fluxiolib;
+﻿#if NET8_0_OR_GREATER
+namespace fluxiolib;
 
 /// <summary>
 /// 필드의 접근 제한자 수준을 나타냅니다.
@@ -6,6 +7,9 @@
 [Flags]
 public enum ProtFlags
 {
+    /// <summary>
+    /// 아무것도 지정하지 않습니다.
+    /// </summary>
     None = 0,
 
     /// <summary>
@@ -69,3 +73,4 @@ public enum ProtFlags
     /// </remarks>
     NonExternAccessible = All & ~ExternAccessible
 }
+#endif

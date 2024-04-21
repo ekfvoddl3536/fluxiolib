@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿#if NET8_0_OR_GREATER
+using System.ComponentModel;
 
 namespace fluxiolib;
 
@@ -8,6 +9,9 @@ namespace fluxiolib;
 [Flags]
 public enum TypeFlags
 {
+    /// <summary>
+    /// 아무것도 지정하지 않습니다.
+    /// </summary>
     None = 0,
 
     /// <summary>
@@ -167,3 +171,4 @@ public enum TypeFlags
     [EditorBrowsable(EditorBrowsableState.Never), Obsolete("not recommended use", false, DiagnosticId = "FLXLIB0001")]
     CorElementType_TYPE_ANY = -1,
 }
+#endif

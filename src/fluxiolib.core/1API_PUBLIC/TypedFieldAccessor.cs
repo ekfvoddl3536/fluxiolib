@@ -1,4 +1,5 @@
-﻿using fluxiolib.Internal;
+﻿#if NET8_0_OR_GREATER
+using fluxiolib.Internal;
 using System.Reflection;
 
 namespace fluxiolib;
@@ -16,14 +17,14 @@ public readonly unsafe struct TypedFieldAccessor : IEquatable<TypedFieldAccessor
     private readonly UnsafeFieldAccessor _fdAccess;
 
     #region constructor
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+    [MethodImpl(HOME.__inline)]
     private TypedFieldAccessor(int offset)
     {
         _type = null!;
         _fdAccess = new(offset);
     }
 
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+    [MethodImpl(HOME.__inline)]
     private TypedFieldAccessor(Type declaringType, FieldDesc* fdDesc)
     {
         _type = declaringType;
@@ -38,7 +39,7 @@ public readonly unsafe struct TypedFieldAccessor : IEquatable<TypedFieldAccessor
     #region value
     /// <include file='0docs/FieldAccessor.Doc.xml' path='docs/valueDirect_summary/*'/>
     /// <include file='0docs/FieldAccessor.Doc.xml' path='docs/value_common/*'/>
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+    [MethodImpl(HOME.__inline)]
     public ref TField ValueDirect<TStruct, TField>(scoped ref readonly TStruct reference) where TStruct : struct
     {
         ThrowIf(typeof(TStruct));
@@ -48,7 +49,7 @@ public readonly unsafe struct TypedFieldAccessor : IEquatable<TypedFieldAccessor
 
     /// <include file='0docs/FieldAccessor.Doc.xml' path='docs/value_summary/*'/>
     /// <include file='0docs/FieldAccessor.Doc.xml' path='docs/value_common/*'/>
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+    [MethodImpl(HOME.__inline)]
     public ref TField Value<TField>(object reference)
     {
         ArgumentNullException.ThrowIfNull(reference);
@@ -60,7 +61,7 @@ public readonly unsafe struct TypedFieldAccessor : IEquatable<TypedFieldAccessor
 
     /// <include file='0docs/FieldAccessor.Doc.xml' path='docs/value_summary/*'/>
     /// <include file='0docs/FieldAccessor.Doc.xml' path='docs/value_common/*'/>
-    [CLSCompliant(false), MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+    [CLSCompliant(false), MethodImpl(HOME.__inline)]
     public ref TField Value<TField>(TypedReference reference)
     {
         ThrowIf(__reftype(reference));
@@ -81,10 +82,12 @@ public readonly unsafe struct TypedFieldAccessor : IEquatable<TypedFieldAccessor
     /// <see cref="UnsafeFieldAccessor"/>로 변환합니다.
     /// </summary>
     /// <returns>타입 제약 및 유효성 검사가 포함되지 않는 고속 FieldAccessor인 <see cref="UnsafeFieldAccessor"/> 입니다.</returns>
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+    [MethodImpl(HOME.__inline)]
     public UnsafeFieldAccessor AsUnsafeAccessor() => _fdAccess;
 
+#pragma warning disable CS1591
     public bool Equals(TypedFieldAccessor other) => _type == other._type && _fdAccess == other._fdAccess;
+#pragma warning restore CS1591
     #endregion
 
     #region helper methods
@@ -98,8 +101,10 @@ public readonly unsafe struct TypedFieldAccessor : IEquatable<TypedFieldAccessor
     #endregion
 
     #region override
+#pragma warning disable CS1591
     public override int GetHashCode() => HashCode.Combine(_type, _fdAccess);
     public override bool Equals(object? obj) => obj is TypedFieldAccessor other && Equals(other);
+#pragma warning restore CS1591
     #endregion
 
     #region static methods (Create)
@@ -109,7 +114,7 @@ public readonly unsafe struct TypedFieldAccessor : IEquatable<TypedFieldAccessor
     /// <param name="fdHandle">접근하고자하는 필드의 핸들입니다.</param>
     /// <returns>만들어진 <see cref="TypedFieldAccessor"/> 객체</returns>
     /// <exception cref="ArgumentException"><paramref name="fdHandle"/>가 속한 타입을 알 수 없습니다.</exception>
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+    [MethodImpl(HOME.__inline)]
     public static TypedFieldAccessor Create(RuntimeFieldHandle fdHandle)
     {
         var fdDesc = (FieldDesc*)fdHandle.Value;
@@ -128,14 +133,14 @@ public readonly unsafe struct TypedFieldAccessor : IEquatable<TypedFieldAccessor
     /// </summary>
     /// <param name="fdInfo">접근하고자하는 필드의 정보입니다.</param>
     /// <returns>만들어진 <see cref="TypedFieldAccessor"/> 객체</returns>
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+    [MethodImpl(HOME.__inline)]
     public static TypedFieldAccessor Create(FieldInfo fdInfo)
     {
         ArgumentNullException.ThrowIfNull(fdInfo);
         return Create(fdInfo.FieldHandle);
     }
 
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+    [MethodImpl(HOME.__inline)]
     internal static TypedFieldAccessor Create(FieldDesc* fdDesc)
     {
         var declaringType = FluxRuntimeFieldDesc.GetApproxDeclaringType((nint)fdDesc->pMethodTable);
@@ -147,7 +152,10 @@ public readonly unsafe struct TypedFieldAccessor : IEquatable<TypedFieldAccessor
     #endregion
 
     #region operator
+#pragma warning disable CS1591
     public static bool operator ==(TypedFieldAccessor left, TypedFieldAccessor right) => left.Equals(right);
     public static bool operator !=(TypedFieldAccessor left, TypedFieldAccessor right) => !(left == right);
+#pragma warning restore CS1591
     #endregion
 }
+#endif

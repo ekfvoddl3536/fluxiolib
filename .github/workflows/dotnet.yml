@@ -10,7 +10,8 @@ on:
         type: choice
         description: .NET SDK Version
         options:
-          - '8.0.x'
+          - '.NET 8'
+          - '.NET Standard 2.0'
         required: true
       os:
         type: choice
@@ -38,21 +39,59 @@ jobs:
 
     runs-on: ${{ github.event.inputs.os }}
     steps:
-    - uses: actions/checkout@v4
-    - name: Setup .NET
+    - name: Setup Environment Variables
+      uses: thaitype/actions-switch-case@v1
+      id: sdk-version
+      with:
+        default: 8.0.x
+        conditionals-with-values: |
+          ${{ github.event.inputs.dotnetVersion == '.NET 9' }} => 9.0.x
+    
+    - uses: thaitype/actions-switch-case@v1
+      id: target-version
+      with: 
+        default: net8.0
+        conditionals-with-values: |
+          ${{ github.event.inputs.dotnetVersion == '.NET 9' }} => net9.0
+          ${{ github.event.inputs.dotnetVersion == '.NET Standard 2.0' }} => netstandard2.0
+    
+    - uses: thaitype/actions-switch-case@v1
+      id: test-mode
+      with:
+        default: __FEATURES_FULL__
+        conditionals-with-values: |
+          ${{ github.event.inputs.dotnetVersion == '.NET Standard 2.0' }} => __FEATURES_MINI__
+    
+    # checkout
+    - name: Checkout
+      uses: actions/checkout@v4
+      
+    - name: Setup .NET SDK
       uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: ${{ github.event.inputs.dotnetVersion }}
+        dotnet-version: ${{ steps.sdk-version.outputs.match }}
         
-    - name: (Build) Restore dependencies
+    - name: Restore dependencies
       run: dotnet restore ${{ env.CORE_PATH }}
-    - name: Build
-      run: dotnet build ${{ env.CORE_PATH }} --no-restore -p:Unsafe=true -nowarn:1701,1702,IDE1006,IDE0290,CS1591 -o ${{ env.OUTPUT_DIR }}
       
-    - name: (Test) Restore dependencies
+    - name: Restore dependencies (for Tests)
       run: dotnet restore ${{ env.TEST_PATH }}
+    
+    - name: Build
+      run: |
+        dotnet build ${{ env.CORE_PATH }} \
+        --no-restore \
+        --configuration Release \
+        -nowarn:1701,1702,IDE1006,IDE0290,CS1591 \
+        -p:Unsafe=true \
+        -p:TargetFramework=${{ steps.target-version.outputs.match }} \
+        -o ${{ env.OUTPUT_DIR }}
+    
     - name: Test
-      run: dotnet test ${{ env.TEST_PATH }} --verbosity normal
+      run: |
+        dotnet test ${{ env.TEST_PATH }} \
+        --verbosity normal \
+        -p:DefineConstants=${{ steps.test-mode.outputs.match }}
       
     - name: Upload
       uses: actions/upload-artifact@v4

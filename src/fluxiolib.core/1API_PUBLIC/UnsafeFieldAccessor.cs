@@ -1,4 +1,12 @@
-﻿namespace fluxiolib;
+﻿#if NET8_0_OR_GREATER
+namespace fluxiolib;
+#else
+using System;
+using System.Runtime.InteropServices;
+using System.Runtime.CompilerServices;
+
+namespace fluxiolib {
+#endif
 
 /// <summary>
 /// 타입 제약을 포함하지 않는 고속 필드 접근자(FieldAccessor) 객체입니다.
@@ -12,7 +20,7 @@ public readonly struct UnsafeFieldAccessor : IEquatable<UnsafeFieldAccessor>
 {
     private readonly int _fieldOffset;
 
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+    [MethodImpl(HOME.__inline)]
     internal UnsafeFieldAccessor(int fieldOffset) => _fieldOffset = fieldOffset;
 
     /// <summary>
@@ -25,38 +33,52 @@ public readonly struct UnsafeFieldAccessor : IEquatable<UnsafeFieldAccessor>
     /// <include file='0docs/FluxTool.Doc.xml' path='docs/unsafeAPI/*'/>
     public int Offset
     {
-        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        [MethodImpl(HOME.__inline)]
         get => _fieldOffset;
     }
 
     /// <include file='0docs/FieldAccessor.Doc.xml' path='docs/valueDirect_summary/*'/>
     /// <include file='0docs/FieldAccessor.Doc.xml' path='docs/value_common/*'/>
     /// <include file='0docs/FluxTool.Doc.xml' path='docs/unsafeAPI/*'/>
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+    [MethodImpl(HOME.__inline)]
+#if NET8_0_OR_GREATER
     public ref TField ValueDirect<TStruct, TField>(scoped ref readonly TStruct reference) where TStruct : struct =>
+#else
+    public ref TField ValueDirect<TStruct, TField>(in TStruct reference) where TStruct : struct =>
+#endif
         ref Value<TField>(in Unsafe.As<TStruct, byte>(ref Unsafe.AsRef(in reference)));
 
     /// <include file='0docs/FieldAccessor.Doc.xml' path='docs/value_summary/*'/>
     /// <include file='0docs/FieldAccessor.Doc.xml' path='docs/value_common/*'/>
     /// <include file='0docs/FluxTool.Doc.xml' path='docs/unsafeAPI/*'/>
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+    [MethodImpl(HOME.__inline)]
     public ref TField Value<TField>(object reference) =>
         ref Value<TField>(in Unsafe.As<ObjectRawData>(reference).Data);
 
     /// <include file='0docs/FieldAccessor.Doc.xml' path='docs/value_summary/*'/>
     /// <include file='0docs/FieldAccessor.Doc.xml' path='docs/value_common/*'/>
     /// <include file='0docs/FluxTool.Doc.xml' path='docs/unsafeAPI/*'/>
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+    [MethodImpl(HOME.__inline)]
+#if NET8_0_OR_GREATER
     public ref TField Value<TField>(scoped ref readonly byte reference) =>
+#else
+    public ref TField Value<TField>(in byte reference) =>
+#endif
         ref Unsafe.As<byte, TField>(ref Unsafe.Add(ref Unsafe.AsRef(in reference), _fieldOffset));
 
+#pragma warning disable CS1591
     public bool Equals(UnsafeFieldAccessor other) => this == other;
 
+#if NETCOREAPP3_0_OR_GREATER
     public override bool Equals(object? obj) => obj is UnsafeFieldAccessor other && Equals(other);
+#else
+    public override bool Equals(object obj) => obj is UnsafeFieldAccessor other && Equals(other);
+#endif
     public override int GetHashCode() => _fieldOffset;
 
     public static bool operator ==(UnsafeFieldAccessor left, UnsafeFieldAccessor right) => left._fieldOffset == right._fieldOffset;
     public static bool operator !=(UnsafeFieldAccessor left, UnsafeFieldAccessor right) => left._fieldOffset != right._fieldOffset;
+#pragma warning restore CS1591
 
 #if DEBUG
     internal string getDebugString()
@@ -70,3 +92,7 @@ public readonly struct UnsafeFieldAccessor : IEquatable<UnsafeFieldAccessor>
     }
 #endif
 }
+
+#if !NET8_0_OR_GREATER
+} // namespace 'fluxiolib'
+#endif
