@@ -1,0 +1,14 @@
+<Project>
+  
+  <!--
+    Using a custom Task to embed some functionality that is not available in lower versions of System.Runtime.CompilerServices.Unsafe
+    Perform IL code generation for well-known methods that do not have a method body.
+  -->
+  <UsingTask TaskName="ILInjection.ILGenCustomTask" AssemblyFile="Tools/bin/Release/netstandard2.0/ILGenTask.dll" />
+  
+  <Target Name="CustomTaskTarget" AfterTargets="Build">
+    <ILInjection.ILGenCustomTask 
+        AssemblyName="$(TargetPath)" />
+  </Target>
+  
+</Project>

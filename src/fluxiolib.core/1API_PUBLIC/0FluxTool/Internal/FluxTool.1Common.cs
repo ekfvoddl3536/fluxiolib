@@ -5,6 +5,8 @@ using System.Reflection;
 
 namespace fluxiolib;
 #else
+using System.Reflection;
+
 namespace fluxiolib {
 #endif
 
@@ -13,13 +15,13 @@ namespace fluxiolib {
 /// </summary>
 public static unsafe partial class FluxTool
 {
-#if NET8_0_OR_GREATER
-    private const BindingFlags INSTANCE_ALL = 
+    internal const BindingFlags INSTANCE_ALL = 
         BindingFlags.Public | 
         BindingFlags.NonPublic | 
         BindingFlags.Instance;
 
-    private const DynamicallyAccessedMemberTypes ACCESS_FIELD = 
+#if NET8_0_OR_GREATER
+    internal const DynamicallyAccessedMemberTypes ACCESS_FIELD = 
         DynamicallyAccessedMemberTypes.PublicFields | 
         DynamicallyAccessedMemberTypes.NonPublicFields;
 

@@ -1,6 +1,9 @@
 ﻿#if NET8_0_OR_GREATER
+using XUnsafe = System.Runtime.CompilerServices.Unsafe;
+
 namespace fluxiolib;
 #else
+using SuperComicLib.Runtime;
 using System;
 using System.Runtime.InteropServices;
 using System.Runtime.CompilerServices;
@@ -46,14 +49,14 @@ public readonly struct UnsafeFieldAccessor : IEquatable<UnsafeFieldAccessor>
 #else
     public ref TField ValueDirect<TStruct, TField>(in TStruct reference) where TStruct : struct =>
 #endif
-        ref Value<TField>(in Unsafe.As<TStruct, byte>(ref Unsafe.AsRef(in reference)));
+        ref Value<TField>(in XUnsafe.As<TStruct, byte>(ref XUnsafe.AsRef(in reference)));
 
     /// <include file='0docs/FieldAccessor.Doc.xml' path='docs/value_summary/*'/>
     /// <include file='0docs/FieldAccessor.Doc.xml' path='docs/value_common/*'/>
     /// <include file='0docs/FluxTool.Doc.xml' path='docs/unsafeAPI/*'/>
     [MethodImpl(HOME.__inline)]
     public ref TField Value<TField>(object reference) =>
-        ref Value<TField>(in Unsafe.As<ObjectRawData>(reference).Data);
+        ref Value<TField>(in XUnsafe.As<ObjectRawData>(reference).Data);
 
     /// <include file='0docs/FieldAccessor.Doc.xml' path='docs/value_summary/*'/>
     /// <include file='0docs/FieldAccessor.Doc.xml' path='docs/value_common/*'/>
@@ -64,7 +67,7 @@ public readonly struct UnsafeFieldAccessor : IEquatable<UnsafeFieldAccessor>
 #else
     public ref TField Value<TField>(in byte reference) =>
 #endif
-        ref Unsafe.As<byte, TField>(ref Unsafe.Add(ref Unsafe.AsRef(in reference), _fieldOffset));
+        ref XUnsafe.As<byte, TField>(ref XUnsafe.Add(ref XUnsafe.AsRef(in reference), _fieldOffset));
 
 #pragma warning disable CS1591
     public bool Equals(UnsafeFieldAccessor other) => this == other;

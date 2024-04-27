@@ -1,11 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   
-  <Import Project="../../build/common.xml" />
+  <Import Project="../../build/common.props" />
   <PropertyGroup>
     <TargetFrameworks>net8.0;netstandard2.0</TargetFrameworks>
-    <Platforms>x64</Platforms>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
-    <SignAssembly>True</SignAssembly>
     <Version>0.1.0</Version>
     <AssemblyTitle>fluxiolib</AssemblyTitle>
     <NoWarn>1701;1702;IDE1006</NoWarn>
@@ -13,7 +11,7 @@
   
   <PropertyGroup Condition="'$(TargetFramework)'=='net8.0'">
     <Nullable>enable</Nullable>
-	  <ImplicitUsings>enable</ImplicitUsings>
+    <ImplicitUsings>enable</ImplicitUsings>
     <IsTrimmable>True</IsTrimmable>
     <IsAotCompatible>True</IsAotCompatible>
     <NoWarn>$(NoWarn);IDE0290</NoWarn>
@@ -23,9 +21,11 @@
     <Using Include="System.Runtime.CompilerServices" />
     <Using Include="System.Runtime.InteropServices" />
   </ItemGroup>
-
-  <ItemGroup Condition="'$(TargetFramework)'=='netstandard2.0'">
-    <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="6.0.0" />
-  </ItemGroup>
+  
+  <!-- 
+    Instead of creating a nuget package reference to 'System.Runtime.CompilerServices.Unsafe', 
+    which causes dependency issues, use the built-in implemented function. 
+  -->
+  <Import Project="../../build/ilgentask.props" Condition="'$(TargetFramework)'=='netstandard2.0'" />
   
 </Project>

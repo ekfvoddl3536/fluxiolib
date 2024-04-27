@@ -3,7 +3,7 @@
 구조체 형식의 참조에서 필드 데이터를 읽습니다.
 
 ```csharp
-public ref TField ValueDirect<TStruct, TField>(scoped ref readonly TStruct reference)
+public ref TField ValueDirect<TStruct, TField>(ref TStruct reference)
     where TStruct : struct
 ```
 
@@ -19,7 +19,7 @@ public ref TField ValueDirect<TStruct, TField>(scoped ref readonly TStruct refer
 
 ## Remarks
 
-이 API는 매개변수나 개체 상태의 유효성을 검사하지 않습니다.
+[이 API는 매개변수나 개체 상태의 유효성을 검사하지 않습니다.](https://learn.microsoft.com/en-us/dotnet/api/system.runtime.compilerservices.unsafe)
 
 ## See Also
 

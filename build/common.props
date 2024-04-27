@@ -6,7 +6,7 @@
         
         <PackageTags>reflection;performance</PackageTags>
         
-        <Copyright>Copyright (c) 2024 SuperComic(ekfvoddl3535@naver.com)</Copyright>
+        <Copyright>Copyright (c) 2024. SuperComic(ekfvoddl3535@naver.com)</Copyright>
         <Authors>SuperComic(ekfvoddl3535@naver.com)</Authors>
         
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
@@ -20,6 +20,21 @@
         <ComVisible>false</ComVisible>
         
         <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+        
+        <Platforms>x64;ARM64</Platforms>
+        <Configurations>Debug;Release</Configurations>
+    </PropertyGroup>
+    
+    <PropertyGroup Condition="'$(Platform)'=='x64'">
+        <PlatformTarget>x64</PlatformTarget>
+    </PropertyGroup>
+    
+    <PropertyGroup Condition="'$(Platform)'=='ARM64'">
+        <PlatformTarget>ARM64</PlatformTarget>
+    </PropertyGroup>
+    
+    <PropertyGroup Condition="'$(Configuration)'=='Release'">
+        <DebugType>none</DebugType>
     </PropertyGroup>
     
 </Project>

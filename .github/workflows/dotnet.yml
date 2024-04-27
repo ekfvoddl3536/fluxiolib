@@ -28,9 +28,17 @@ on:
           - macos-13
           - macos-12
         required: true
+      arch:
+        type: choice
+        description: Architecture
+        options:
+          - x64
+          - ARM64
+        required: true
 
 env:
   CORE_PATH: src/fluxiolib.core/fluxiolib.csproj
+  TOOL_PATH: build/Tools/ILGenTask.csproj
   TEST_PATH: tests/FluxIOLib.Tests/FluxIOLib.Tests.csproj
   OUTPUT_DIR: build/Artifacts
   
@@ -74,9 +82,16 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore ${{ env.CORE_PATH }}
       
+    - name: Restore dependencies (for Tools)
+      run: dotnet restore ${{ env.TOOL_PATH }}
+      
     - name: Restore dependencies (for Tests)
       run: dotnet restore ${{ env.TEST_PATH }}
     
+    - name: Build Tools
+      run: dotnet build ${{ env.TOOL_PATH }}
+      if: ${{ github.event.inputs.dotnetVersion == '.NET Standard 2.0' }}
+      
     - name: Build
       run: |
         dotnet build ${{ env.CORE_PATH }} \
@@ -85,12 +100,14 @@ jobs:
         -nowarn:1701,1702,IDE1006,IDE0290,CS1591 \
         -p:Unsafe=true \
         -p:TargetFramework=${{ steps.target-version.outputs.match }} \
+        -p:Platform=${{ github.event.inputs.arch }} \
         -o ${{ env.OUTPUT_DIR }}
     
     - name: Test
       run: |
         dotnet test ${{ env.TEST_PATH }} \
         --verbosity normal \
+        -p:Platform=${{ github.event.inputs.arch }} \
         -p:DefineConstants=${{ steps.test-mode.outputs.match }}
       
     - name: Upload

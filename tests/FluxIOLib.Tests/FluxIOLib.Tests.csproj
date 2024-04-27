@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <Import Project="..\..\build\common.xml" />
+  <Import Project="../../build/common.props" />
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
@@ -9,12 +9,11 @@
     <IsPackable>false</IsPackable>
     <IsTestProject>true</IsTestProject>
 
-	<GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>
-	<GenerateDocumentationFile>false</GenerateDocumentationFile>
+	  <GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>
+	  <GenerateDocumentationFile>false</GenerateDocumentationFile>
 
-	<AssemblyTitle>FluxIOLib.Tests</AssemblyTitle>
-	<AssemblyName>FluxIOLib.Tests</AssemblyName>
-	<Platforms>x64</Platforms>
+	  <AssemblyTitle>FluxIOLib.Tests</AssemblyTitle>
+	  <AssemblyName>FluxIOLib.Tests</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>
@@ -25,7 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\fluxiolib.core\fluxiolib.csproj" />
+    <ProjectReference Include="../../src/fluxiolib.core/fluxiolib.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -16,7 +16,7 @@ public static int GetNumInstanceFields_Unsafe(Type t)
 
 ## Remarks
 
-이 API는 매개변수나 개체 상태의 유효성을 검사하지 않습니다.
+[이 API는 매개변수나 개체 상태의 유효성을 검사하지 않습니다.](https://learn.microsoft.com/en-us/dotnet/api/system.runtime.compilerservices.unsafe)
 
 ## See Also
 
