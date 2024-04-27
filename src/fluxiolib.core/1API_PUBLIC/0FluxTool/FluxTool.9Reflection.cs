@@ -42,7 +42,7 @@ static unsafe partial class FluxTool
 #pragma warning disable
         uint offset = 
             PlatformHelper.isRunningOnMono
-            ? ((MonoFDesc*)fdHandle.Value)->m_dwOffset
+            ? ((MonoFDesc*)fdHandle.Value)->Offset
             : ((FieldDesc*)fdHandle.Value)->Offset;
 
         return new UnsafeFieldAccessor((int)offset);
