@@ -104,5 +104,11 @@ More information on how to use it can be found [here](#usage-guide).
 - [English](./docs/en/HowToUse_Basic.md)
 
 ## API Document
+## .NET 8.0
 - [한국어](./docs/ko/API/net8.0/fluxiolib.md)
 - English (**Not ready yet**)
+
+## .NET Standard 2.0
+- [한국어](./docs/ko/API/netstandard2.0/fluxiolib.md)
+- English (**Not ready yet**)
+

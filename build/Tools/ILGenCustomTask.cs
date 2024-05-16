@@ -29,7 +29,7 @@ namespace ILInjection
 
             try
             {
-                RunTask(dllPath);
+                WellknowMethodILGenTask(dllPath);
             }
             catch (Exception ex)
             {
@@ -43,7 +43,7 @@ namespace ILInjection
             return true;
         }
 
-        private void RunTask(string dllPath)
+        private void WellknowMethodILGenTask(string dllPath)
         {
             Log.LogMessage(MessageImportance.High, "Start...");
 

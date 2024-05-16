@@ -8,6 +8,9 @@
     <AssemblyTitle>fluxiolib</AssemblyTitle>
     <NoWarn>1701;1702;IDE1006</NoWarn>
     <Platforms>x64;ARM64</Platforms>
+    
+    <!-- DEFAULT TARGET FRAMEWORK VERSION -->
+    <TargetFramework Condition="'$(TargetFramework)'==''">net8.0</TargetFramework>
   </PropertyGroup>
   
   <PropertyGroup Condition="'$(TargetFramework)'=='net8.0'">
