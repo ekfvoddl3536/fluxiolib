@@ -94,14 +94,7 @@ jobs:
       
     - name: Build
       run: |
-        dotnet build ${{ env.CORE_PATH }} \
-        --no-restore \
-        --configuration Release \
-        -nowarn:1701,1702,IDE1006,IDE0290,CS1591 \
-        -p:Unsafe=true \
-        -p:TargetFramework=${{ steps.target-version.outputs.match }} \
-        -p:Platform=${{ github.event.inputs.arch }} \
-        -o ${{ env.OUTPUT_DIR }}
+        dotnet build ${{ env.CORE_PATH }} --no-restore -c Release -nowarn:1701,1702,IDE1006,IDE0290,CS1591 -p:Unsafe=true -p:TargetFramework=${{ steps.target-version.outputs.match }} -p:Platform=${{ github.event.inputs.arch }} -o ${{ env.OUTPUT_DIR }}
     
     - name: Test
       run: |
