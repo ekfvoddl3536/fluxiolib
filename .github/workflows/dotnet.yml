@@ -89,7 +89,7 @@ jobs:
       run: dotnet restore ${{ env.TEST_PATH }}
     
     - name: Build Tools
-      run: dotnet build ${{ env.TOOL_PATH }}
+      run: dotnet build ${{ env.TOOL_PATH }} -c Release
       if: ${{ github.event.inputs.dotnetVersion == '.NET Standard 2.0' }}
       
     - name: Build
@@ -98,10 +98,7 @@ jobs:
     
     - name: Test
       run: |
-        dotnet test ${{ env.TEST_PATH }} \
-        --verbosity normal \
-        -p:Platform=${{ github.event.inputs.arch }} \
-        -p:DefineConstants=${{ steps.test-mode.outputs.match }}
+        dotnet test ${{ env.TEST_PATH }} --verbosity normal -p:Platform=${{ github.event.inputs.arch }} -p:DefineConstants=${{ steps.test-mode.outputs.match }}
       
     - name: Upload
       uses: actions/upload-artifact@v4
